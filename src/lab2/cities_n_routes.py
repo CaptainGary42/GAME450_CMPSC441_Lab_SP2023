@@ -26,8 +26,8 @@ def get_randomly_spread_cities(size, n_cities):
     listOfCities = []
 
     for cities in range(n_cities):
-        x = random.randint(0, size[0])
-        y = random.randint(0, size[1])
+        x = random.randint(0, size[0]-1)
+        y = random.randint(0, size[1]-1)
         listOfCities.append((x, y))
 
     return listOfCities
