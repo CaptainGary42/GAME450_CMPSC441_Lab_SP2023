@@ -74,12 +74,15 @@ class AiPlayer(Player):
         lastPlayerTen = self.my_choices[-10:]
         
 
-        #for elem in lastOpponentTen:
-           # if lastPlayerTen != :
-             #   isSwitch = 0
-              #  break
-           # else:
-             #   isSwitch = 1
+        for i in range(10):
+            if(lastPlayerTen[i] != lastOpponentTen[i]):
+                isMimic = 0
+                break
+            else:
+                isMimic = 1
+
+        if(isMimic == 1):
+            return (self.my_choices[-1]+1)%3
 
 
             
