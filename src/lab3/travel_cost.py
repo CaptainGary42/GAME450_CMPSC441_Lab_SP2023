@@ -2,16 +2,17 @@
 Lab 3: Travel Cost
 
 Your player will need to move from one city to another in order to complete the game.
-The player will have to spend money to travel between cities. The cost of travel depends 
+The player will have to spend money to travel between cities. The cost of travel depends
 on the difficulty of the terrain.
 In this lab, you will write a function that calculates the cost of a route between two cities,
-A terrain is generated for you 
+A terrain is generated for you
 '''
+
 import numpy as np
 
 def get_route_cost(route_coordinate, game_map):
     """
-    This function takes in a route_coordinate as a tuple of coordinates of cities to connect, 
+    This function takes in a route_coordinate as a tuple of coordinates of cities to connect,
     example:  and a game_map as a numpy array of floats,
     remember from previous lab the routes looked like this: [(A, B), (A, C)]
     route_coordinates is just inserts the coordinates of the cities into a route like (A, C).
@@ -26,9 +27,9 @@ def get_route_cost(route_coordinate, game_map):
       |-----------|
     3 |   | C |   |
       -------------
-        I   J   K 
+        I   J   K
 
-    Cost between cities A and C is the sum of the costs of the cells 
+    Cost between cities A and C is the sum of the costs of the cells
         I1, I2, J2 and J3.
     Alternatively you could use a direct path from A to C that uses diagonal movement, like
         I1, J2, J3
@@ -55,7 +56,11 @@ def get_route_cost(route_coordinate, game_map):
     path.append((startX,startY)) #Add the starting position to path
 
     for x in range(maxIteration): #Calculate the shortest path from the starting position to the final position
+<<<<<<< HEAD
         if(startX == finalX and startY == finalY): 
+=======
+        if(startX == finalX and startY == finalY):
+>>>>>>> 320d2621f474004324cece8c02e10d03d1252711
             break #Break if you reached the final coordinate
         if(startX < finalX): #Go Right
             startX+=1
@@ -68,8 +73,13 @@ def get_route_cost(route_coordinate, game_map):
         pair = (startX,startY)
         #print(pair)
         path.append(pair)
+<<<<<<< HEAD
     
   
+=======
+   
+ 
+>>>>>>> 320d2621f474004324cece8c02e10d03d1252711
     # Build a path from start to end that looks like [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 4)]
     pass 
     return game_map[tuple(zip(*path))].sum()
@@ -97,7 +107,7 @@ def main():
     sys.path.append(str((Path(__file__)/'..'/'..').resolve().absolute()))
     from lab2.cities_n_routes import get_randomly_spread_cities, get_routes
 
-    city_names = ['Morkomasto', 'Morathrad', 'Eregailin', 'Corathrad', 'Eregarta', 
+    city_names = ['Morkomasto', 'Morathrad', 'Eregailin', 'Corathrad', 'Eregarta',
                   'Numensari', 'Rhunkadi', 'Londathrad', 'Baernlad', 'Forthyr']
     map_size = 300, 200
 
