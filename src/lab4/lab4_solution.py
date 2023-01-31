@@ -44,12 +44,12 @@ class AiPlayer(Player):
         super().__init__(name)
         self.initial_weapon = random_weapon_select()
     
-   
-
     def weapon_selecting_strategy(self):
         if len(self.opponent_choices) == 0:
             return self.initial_weapon
-        return (self.opponent_choices[-1]+1)%3 #Double check that this is correct
+        return (self.opponent_choices[-1]+1)%3 
+
+    
 
 
 if __name__ == '__main__':
@@ -59,6 +59,7 @@ if __name__ == '__main__':
             tally = [score for _, score in run_game(AiPlayer("AI"), 100, agent)]
             if sum(tally) == 0:
                 final_tally[agent] = 0
-            final_tally[agent] += tally[0]/sum(tally)
+            else:
+                final_tally[agent] += tally[0]/sum(tally)
 
     print("Final tally: ", final_tally)  
