@@ -45,9 +45,64 @@ class AiPlayer(Player):
         self.initial_weapon = random_weapon_select()
     
     def weapon_selecting_strategy(self):
+
+        isSwitch = 0
+        isMimic = 0
+
         if len(self.opponent_choices) == 0:
             return self.initial_weapon
-        return (self.opponent_choices[-1]+1)%3 
+        
+        #Single
+        if len(set(self.opponent_choices)) == 1:
+            return (self.opponent_choices[-1]+1)%3
+
+        #Switch
+        lastTen = self.opponent_choices[-10:]
+        firstElem = lastTen[0]
+
+        for elem in lastTen:
+            if elem != firstElem:
+                isSwitch = 0
+                break
+            else:
+                isSwitch = 1
+        if(isSwitch):
+            return (self.opponent_choices[-1]+1)%3
+    
+        #Mimic
+        lastOpponentTen = self.opponent_choices[-10:]
+        lastPlayerTen = self.my_choices[-10:]
+        
+
+        #for elem in lastOpponentTen:
+           # if lastPlayerTen != :
+             #   isSwitch = 0
+              #  break
+           # else:
+             #   isSwitch = 1
+
+
+            
+        return (self.opponent_choices[-1]+1)%3
+
+       
+        
+
+    def checkIfSwitch(list):
+
+        lastTen = list[-10:]
+        firstElem = lastTen[0]
+
+        for elem in lastTen:
+            if elem != firstElem:
+                return False
+        
+        return True
+
+         
+
+        
+       
 
     
 
