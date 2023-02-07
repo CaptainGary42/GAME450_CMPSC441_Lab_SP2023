@@ -1,32 +1,24 @@
 '''
 Lab 4: Rock-Paper-Scissor AI Agent
-
 In this lab you will build one AI agent for the game of Rock-Paper-Scissors, that can defeat a few different kinds of 
 computer players.
-
 You will update the AI agent class to create your first AI agent for this course.
 Use the precept sequence to find out which opponent agent you are facing, 
 so that it can beat these three opponent agents:
-
     Agent Single:  this agent picks a weapon at random at the start, 
                    and always plays that weapon.  
                    For example: 2,2,2,2,2,2,2,.....
-
     Agent Switch:  this agent picks a weapon at random at the start,
                    and randomly picks a weapon once every 10 rounds.  
                    For example:  2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,...
-
     Agent Mimic:  this agent picks a weapon at random in the first round, 
                   and then always does what you did the previous round.  
                   For example:  if you played 1,2,0,1,2,0,1,2,0,...  
                    then this agent would play 0,1,2,0,1,2,0,1,2,...
-
 Discussions in lab:  You don't know ahead of time which opponent you will be facing, 
 so the first few rounds will be used to figure this out.   How?
-
 Once you've figured out the opponent, apply rules against that opponent. 
 A model-based reflex agent uses rules (determined by its human creator) to decide which action to take.
-
 If your AI is totally random, you should be expected to win about 33% of the time, so here is the requirement:  
 In 100 rounds, you should consistently win at least 85 rounds to be considered a winner.
 
@@ -47,16 +39,15 @@ class AiPlayer(Player):
     def weapon_selecting_strategy(self):
 
         isSwitch = 0
-        isMimic = 0
-
+        
         if len(self.opponent_choices) == 0:
             return self.initial_weapon
         
-        #Single
+        #Catch Single
         if len(set(self.opponent_choices)) == 1:
             return (self.opponent_choices[-1]+1)%3
 
-        #Switch
+        #Catch Switch
         lastTen = self.opponent_choices[-10:]
         firstElem = lastTen[0]
 
@@ -70,45 +61,20 @@ class AiPlayer(Player):
             return (self.opponent_choices[-1]+1)%3
     
         #Mimic
-        lastOpponentTen = self.opponent_choices[-10:]
-        lastPlayerTen = self.my_choices[-10:]
-        
+        val = ((self.my_choices[-1] + 1)%3)
 
-        for i in range(10):
-            if(lastPlayerTen[i] != lastOpponentTen[i]):
+        isMimic = 1
+
+        for i in range(len(self.opponent_choices)-1):
+            if(self.opponent_choices[i+1] is None):
+                break
+            if(self.my_choices[i] != self.opponent_choices[i+1]):
                 isMimic = 0
                 break
-            else:
-                isMimic = 1
-
         if(isMimic == 1):
-            return (self.my_choices[-1]+1)%3
+            return val
 
-
-            
         return (self.opponent_choices[-1]+1)%3
-
-       
-        
-
-    def checkIfSwitch(list):
-
-        lastTen = list[-10:]
-        firstElem = lastTen[0]
-
-        for elem in lastTen:
-            if elem != firstElem:
-                return False
-        
-        return True
-
-         
-
-        
-       
-
-    
-
 
 if __name__ == '__main__':
     final_tally = [0]*3
@@ -121,3 +87,4 @@ if __name__ == '__main__':
                 final_tally[agent] += tally[0]/sum(tally)
 
     print("Final tally: ", final_tally)  
+
