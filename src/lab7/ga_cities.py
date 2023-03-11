@@ -13,6 +13,8 @@ fulfilled. Clearly explain in comments which line of code and variables are used
 import matplotlib.pyplot as plt
 import pygad
 import numpy as np
+import math
+
 
 import sys
 from pathlib import Path
@@ -20,16 +22,74 @@ from pathlib import Path
 sys.path.append(str((Path(__file__) / ".." / ".." / "..").resolve().absolute()))
 
 from src.lab5.landscape import elevation_to_rgba
-
+from src.lab5.landscape import get_elevation
 
 def game_fitness(cities, idx, elevation, size):
     fitness = 0.0001  # Do not return a fitness of 0, it will mess up the algorithm.
+
+    "MountainElevation > 160"
+    "WaterElevation < 50"
+    "Green Plains > 50 < 160"
     """
     Create your fitness function here to fulfill the following criteria:
     1. The cities should not be under water
+
     2. The cities should have a realistic distribution across the landscape
     3. The cities may also not be on top of mountains or on top of each other
     """
+
+    cords = solution_to_cities(cities,size)
+
+    #print("Starting to check distance")
+    for i in range(0, 10):
+        for j in range(i, 10):
+            if(i == j):
+                continue
+           # print("City A: " +str(i) + ", City B: " + str(j))
+            
+            cityAX = cords[i][0]
+            cityAY = cords[i][1]
+            cityBX = cords[j][0]
+            cityBY = cords[j][1]
+
+            #print("Coordinates of City A:" + str((cityAX,cityAY)))
+            #print("Coordinates of City B:" + str((cityBX,cityBY)))
+
+            distance = math.dist((cityAX,cityAY),(cityBX,cityBY))
+
+            #print("Distance between those cities:" + str(distance))
+            if(distance < 40):
+                fitness =.0001
+                #print("Too close")
+            elif(distance > 60):
+                fitness += .0002
+               # print("Too far")
+            elif(distance > 40 or distance < 50):
+                fitness +=.0005
+                #print("Just right")
+        
+   
+    ##Look at elevations
+    for cord in cords:
+        cityX = cord[0]
+        cityY = cord[1]
+        if(elevation[cityX][cityY] > 0.57): ##Too high elevation
+            fitness+=.0002
+        elif(elevation[cityX][cityY] < 0.47): ## Too low elevation
+            fitness+=.0001
+        elif(elevation[cityX][cityY] < 0.57 and elevation[cityX][cityY] > 0.47): ##Good elevation
+            fitness+=.0005
+    
+    
+
+        
+    
+
+
+        
+
+
+
     return fitness
 
 
@@ -115,6 +175,7 @@ if __name__ == "__main__":
     n_cities = 10
     elevation = []
     """ initialize elevation here from your previous code"""
+    elevation = get_elevation(size)
     # normalize landscape
     elevation = np.array(elevation)
     elevation = (elevation - elevation.min()) / (elevation.max() - elevation.min())
