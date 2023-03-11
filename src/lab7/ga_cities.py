@@ -75,7 +75,6 @@ def game_fitness(cities, idx, elevation, size):
         elif(elevation[cityX][cityY] < 0.57 and elevation[cityX][cityY] > 0.47): #Good elevation
             fitness+=.0005
 
-
     return fitness
 
 
