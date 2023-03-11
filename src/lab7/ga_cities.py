@@ -40,55 +40,40 @@ def game_fitness(cities, idx, elevation, size):
 
     cords = solution_to_cities(cities,size)
 
-    #print("Starting to check distance")
+    #Iterate through all cities
     for i in range(0, 10):
         for j in range(i, 10):
             if(i == j):
                 continue
-           # print("City A: " +str(i) + ", City B: " + str(j))
             
+            #Get coordinates of cities
             cityAX = cords[i][0]
             cityAY = cords[i][1]
             cityBX = cords[j][0]
             cityBY = cords[j][1]
 
-            #print("Coordinates of City A:" + str((cityAX,cityAY)))
-            #print("Coordinates of City B:" + str((cityBX,cityBY)))
-
+            #Calculate distance between the two cities
             distance = math.dist((cityAX,cityAY),(cityBX,cityBY))
 
-            #print("Distance between those cities:" + str(distance))
-            if(distance < 40):
+
+            if(distance < 40):  #The cities are too close
                 fitness =.0001
-                #print("Too close")
-            elif(distance > 60):
+            elif(distance > 60): #The cities are too far
                 fitness += .0002
                # print("Too far")
-            elif(distance > 40 or distance < 50):
-                fitness +=.0005
-                #print("Just right")
-        
+            elif(distance > 40 or distance < 50): #The cities have good spacing
+                fitness +=.0005        
    
-    ##Look at elevations
+    #Look at elevations
     for cord in cords:
         cityX = cord[0]
         cityY = cord[1]
-        if(elevation[cityX][cityY] > 0.57): ##Too high elevation
+        if(elevation[cityX][cityY] > 0.57): #Too high elevation
             fitness+=.0002
-        elif(elevation[cityX][cityY] < 0.47): ## Too low elevation
+        elif(elevation[cityX][cityY] < 0.47): # Too low elevation
             fitness+=.0001
-        elif(elevation[cityX][cityY] < 0.57 and elevation[cityX][cityY] > 0.47): ##Good elevation
+        elif(elevation[cityX][cityY] < 0.57 and elevation[cityX][cityY] > 0.47): #Good elevation
             fitness+=.0005
-    
-    
-
-        
-    
-
-
-        
-
-
 
     return fitness
 
