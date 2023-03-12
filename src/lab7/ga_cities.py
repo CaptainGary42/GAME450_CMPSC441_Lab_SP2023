@@ -27,9 +27,20 @@ from src.lab5.landscape import get_elevation
 def game_fitness(cities, idx, elevation, size):
     fitness = 0.0001  # Do not return a fitness of 0, it will mess up the algorithm.
 
-    "MountainElevation > 160"
-    "WaterElevation < 50"
-    "Green Plains > 50 < 160"
+    goodElevationScore = 1 #The amount of points of fitness added if the elevation of a city is good
+    goodElevationCount = 0 #The amount of cities with good elevation
+
+    badElevationScore = -4 #The amount of points of fitness subtracted if the elevation of a city is bad
+    badElevationCount = 0 #The amount of cities with bad elevation
+
+    goodDistanceScore = 1 #The amount of points of fitness added if the distance between cities is good
+    goodDistanceCount = 0 #The amount of cities with good distance between them
+
+    badDistanceScore = -4 #The amount of points of fitness subtracted if the distance between cities is bad
+    badDistanceCount = 0 #The amount of cities with bad distance between them
+
+    shortestDistance = 101 #Variable to keep track of the shortest distance between a pair of cities
+
     """
     Create your fitness function here to fulfill the following criteria:
     1. The cities should not be under water
@@ -40,7 +51,8 @@ def game_fitness(cities, idx, elevation, size):
 
     cords = solution_to_cities(cities,size)
 
-    #Iterate through all cities
+    #Iterate through all cities and look at distances
+
     for i in range(0, 10):
         for j in range(i, 10):
             if(i == j):
@@ -55,25 +67,37 @@ def game_fitness(cities, idx, elevation, size):
             #Calculate distance between the two cities
             distance = math.dist((cityAX,cityAY),(cityBX,cityBY))
 
+            if(shortestDistance > distance): #Keep track of the shortest distance between a pair of cities on the map
+                shortestDistance = distance 
 
-            if(distance < 40):  #The cities are too close
-                fitness =.0001
-            elif(distance > 60): #The cities are too far
-                fitness += .0002
-               # print("Too far")
-            elif(distance > 40 or distance < 50): #The cities have good spacing
-                fitness +=.0005        
-   
+            if(distance < 18 or distance > 60) : #The distance between cities is too close or too far
+                fitness+=badDistanceScore 
+                badDistanceCount+=1
+            else:
+                fitness+=goodDistanceScore #The distance between cities is good
+                goodDistanceCount+=1
+                
     #Look at elevations
     for cord in cords:
+
         cityX = cord[0]
         cityY = cord[1]
-        if(elevation[cityX][cityY] > 0.57): #Too high elevation
-            fitness+=.0002
-        elif(elevation[cityX][cityY] < 0.47): # Too low elevation
-            fitness+=.0001
-        elif(elevation[cityX][cityY] < 0.57 and elevation[cityX][cityY] > 0.47): #Good elevation
-            fitness+=.0005
+
+        if(elevation[cityX][cityY] > 0.54 or elevation[cityX][cityY] < 0.47 ): #The elevation of a city is too low or too high
+            fitness+=badElevationScore
+            badElevationCount+=1
+        else:
+            fitness+=goodElevationScore #The elevation of a city is good
+            goodElevationCount+=1
+
+    #Add bonus points
+    fitness+=shortestDistance*2 #The longer the shortest distance between two cities on a map is, the more fitness added
+
+    fitness+=goodElevationCount
+    fitness+=goodDistanceCount
+
+    fitness-=badElevationCount
+    fitness-=badDistanceCount
 
     return fitness
 
