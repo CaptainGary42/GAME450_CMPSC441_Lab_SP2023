@@ -24,6 +24,7 @@ def get_landscape_surface(size):
     return pygame_surface
 
 
+
 def get_combat_surface(size):
     landscape = get_combat_bg(size)
     print("Created a landscape of size", landscape.shape)
@@ -33,8 +34,8 @@ def get_combat_surface(size):
 
 def setup_window(width, height, caption):
     pygame.init()
+    print(type(caption))
     window = pygame.display.set_mode((width, height))
-    pygame.display.set_caption(caption)
     return window
 
 
@@ -48,12 +49,15 @@ class State:
     def __init__(
         self, current_city, destination_city, travelling, encounter_event, cities, routes
     ):
+        
         self.current_city = current_city
         self.destination_city = destination_city
         self.travelling = travelling
         self.encounter_event = encounter_event
         self.cities = cities
         self.routes = routes
+       
+
 
 
 if __name__ == "__main__":
@@ -72,6 +76,7 @@ if __name__ == "__main__":
         "Morkomasto",
         "Morathrad",
         "Eregailin",
+        "Eregailin",
         "Corathrad",
         "Eregarta",
         "Numensari",
@@ -89,10 +94,14 @@ if __name__ == "__main__":
 
     player_sprite = Sprite(sprite_path, cities[start_city])
 
+   
+
     player = PyGameHumanPlayer()
 
     """ Add a line below that will reset the player variable to 
     a new object of PyGameAIPlayer class."""
+    player = PyGameAIPlayer()
+    """"""
 
     state = State(
         current_city=start_city,
@@ -120,7 +129,7 @@ if __name__ == "__main__":
             pygame.draw.circle(screen, (255, 0, 0), city, 5)
 
         for line in routes:
-            pygame.draw.line(screen, (255, 0, 0), *line)
+            pygame.draw.line(screen, (255, 140, 200), *line)
 
         displayCityNames(cities, city_names)
         if state.travelling:
