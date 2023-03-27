@@ -1,8 +1,6 @@
 import pygame
 import math
 
-#Sprite
-
 def load_image(image_path):
     image = pygame.image.load(image_path).convert_alpha()
     return image

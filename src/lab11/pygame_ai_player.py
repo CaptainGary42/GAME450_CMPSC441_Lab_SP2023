@@ -14,8 +14,6 @@ class PyGameAIPlayer:
             return ord(str(9))
         return ord(str(start+1))
        
-    
-
 
 """ Create PyGameAICombatPlayer class here"""
 class PyGameAICombatPlayer(CombatPlayer):

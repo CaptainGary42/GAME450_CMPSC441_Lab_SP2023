@@ -11,7 +11,6 @@ AI_SPRITE_PATH = Path("assets/ai.png")
 pygame.font.init()
 game_font = pygame.font.SysFont("Comic Sans MS", 15)
 
-
 class PyGameComputerCombatPlayer(CombatPlayer):
     def __init__(self, name):
         super().__init__(name)

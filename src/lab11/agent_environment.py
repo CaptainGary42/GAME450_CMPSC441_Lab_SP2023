@@ -24,7 +24,6 @@ def get_landscape_surface(size):
     return pygame_surface
 
 
-
 def get_combat_surface(size):
     landscape = get_combat_bg(size)
     print("Created a landscape of size", landscape.shape)

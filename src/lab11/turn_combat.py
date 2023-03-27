@@ -4,8 +4,6 @@ import pygame
 import sys
 from pathlib import Path
 
-#Turn Combat
-
 sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
 from lab4.rock_paper_scissor import Player
 
