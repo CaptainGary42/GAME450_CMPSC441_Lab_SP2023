@@ -3,17 +3,26 @@ from lab11.turn_combat import CombatPlayer
 
 
 class PyGameHumanPlayer:
-    def __init__(self) -> None:
+    def __init__(self):
         pass
 
-    def selectAction(self, state):
+    def selectAction(self, state, cityConnections):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if ord("0") <= event.key <= ord("9"):
-                    return event.key
+                    if int(chr(event.key)) in cityConnections[state.current_city]:
+                        #print("key",int(chr(event.key)))
+                        #print("accessible")
+                        #print("accessibleCities",cityConnections[state.current_city])
+                        return event.key
+                    else:
+                        #print("not accessible")
+                        #print("accessibleCities",cityConnections[state.current_city])
+                        return -1
         return ord(str(state.current_city))  # Not a safe operation for >10 cities
+
 
 class PyGameHumanCombatPlayer(CombatPlayer):
 
