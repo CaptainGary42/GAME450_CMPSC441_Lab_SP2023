@@ -23,11 +23,11 @@ class PyGameComputerCombatPlayer(CombatPlayer):
         else:
             self.weapon = 0
         return self.weapon
-
-
+    
 def run_pygame_combat(combat_surface, screen, player_sprite):
     currentGame = Combat()
-    player = PyGameHumanCombatPlayer("Legolas")
+    #player = PyGameHumanCombatPlayer("Legolas")
+
     """ Add a line below that will reset the player object
     to an instance of the PyGameAICombatPlayer class"""
     player=PyGameAICombatPlayer("AI PLAYER",0)
@@ -59,3 +59,9 @@ def run_pygame_combat(combat_surface, screen, player_sprite):
         print("%s's health = %d" % (player.name, player.health))
         print("%s's health = %d" % (opponent.name, opponent.health))
         currentGame.checkWin(player, opponent)
+        
+
+    if(currentGame.loss == True):
+        return 0
+    else:
+        return 1
