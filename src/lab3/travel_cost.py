@@ -9,8 +9,13 @@ A terrain is generated for you
 '''
 
 import numpy as np
+from bresenham import bresenham
 
 def get_route_cost(route_coordinate, game_map):
+    
+    game_map = np.abs(game_map)
+
+
     """
     This function takes in a route_coordinate as a tuple of coordinates of cities to connect,
     example:  and a game_map as a numpy array of floats,
@@ -40,38 +45,16 @@ def get_route_cost(route_coordinate, game_map):
     :return: a floating point number representing the cost of the route
     """
 
-
     path = [] #List of coordinates for the path
 
-    maxIteration = max(max(route_coordinate[0]),max(route_coordinate[1])) #Get the largest coordinate point for the loop
-   
-    startX = route_coordinate[0][0] #StartingX position
-    startY = route_coordinate[0][1] #StartingY position
-    finalX = route_coordinate[1][0] #EndingX position
-    finalY = route_coordinate[1][1] #EndingY position
+    x0 = route_coordinate[0][0] #StartingX position
+    y0 = route_coordinate[0][1] #StartingY position
+    x1 = route_coordinate[1][0] #EndingX position
+    y1 = route_coordinate[1][1] #EndingY position
 
-    #print("Starting Coordinate:  " + str(startX) + "," + str(startY))
-    #print("Final Coordinate:  " + str(finalX) + "," + str(finalY))
-
-    path.append((startX,startY)) #Add the starting position to path
-
-    for x in range(maxIteration): #Calculate the shortest path from the starting position to the final position
-        if(startX == finalX and startY == finalY): 
-            break #Break if you reached the final coordinate
-        if(startX < finalX): #Go Right
-            startX+=1
-        if(startX > finalX): #Go Left
-            startX-=1
-        if(startY < finalY): #Go Up
-            startY+=1
-        if(startY > finalY): #Go Down
-            finalY-=1
-        pair = (startX,startY)
-        #print(pair)
-        path.append(pair)
-    
-  
     # Build a path from start to end that looks like [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 4)]
+    path = list(bresenham(x0,y0,x1,y1))
+   
     pass 
     return game_map[tuple(zip(*path))].sum()
 
@@ -103,6 +86,8 @@ def main():
     map_size = 300, 200
 
     n_cities = len(city_names)
+    
+    #Get a random numpy array
     game_map = generate_terrain(map_size)
     print(f'Map size: {game_map.shape}')
 
