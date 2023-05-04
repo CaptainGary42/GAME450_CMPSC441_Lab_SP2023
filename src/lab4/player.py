@@ -2,6 +2,7 @@
 # > The `Player` class is a blueprint for creating objects that represent a player in the game
 class Player:
     def __init__(self, name, strategy=lambda : 1):
+
         self.name = name
         self.my_choices = []
         self.opponent_choices = []
