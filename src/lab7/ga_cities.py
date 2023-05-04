@@ -53,8 +53,9 @@ def game_fitness(cities, idx, elevation, size):
 
     #Iterate through all cities and look at distances
 
-    for i in range(0, 10):
-        for j in range(i, 10):
+    #change to 9 if doesn't work
+    for i in range(0, 9):
+        for j in range(i, 9):
             if(i == j):
                 continue
             
@@ -174,14 +175,14 @@ def show_cities(cities, landscape_pic, cmap="gist_earth"):
     cities = np.array(cities)
     plt.imshow(landscape_pic, cmap=cmap)
     plt.plot(cities[:, 1], cities[:, 0], "r.")
-    plt.show()
+    #plt.show()
 
 
 if __name__ == "__main__":
     print("Initial Population")
 
     size = 100, 100
-    n_cities = 10
+    n_cities = 9
     elevation = []
     """ initialize elevation here from your previous code"""
     elevation = get_elevation(size)
@@ -211,5 +212,5 @@ if __name__ == "__main__":
     cities_t = solution_to_cities(cities, size)
     plt.imshow(landscape_pic, cmap="gist_earth")
     plt.plot(cities_t[:, 1], cities_t[:, 0], "r.")
-    plt.show()
+    #plt.show()
     print(fitness_function(cities, 0))
