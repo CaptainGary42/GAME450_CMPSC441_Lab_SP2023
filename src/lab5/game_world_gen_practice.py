@@ -59,25 +59,31 @@ def getRoutes(city_names):
 
 """"
 >drawCities
->Draw the cities on the map as orange dors
+>Draw the cities on the map as orange dots
 """
 def drawCities(city_locations,surface):
     orange = 255,102,0
     for x in city_locations:
-        pygame.draw.circle(surface,orange,(x[0],x[1]),10)
+        pygame.draw.circle(surface,orange,(x[0],x[1]),7)
 
 """"
 >drawRoutes
 >Draw the roads between the cities
 """
-
 def drawRoutes(routes,dict,surface):
     grey = 58,58,58
-
+    print("dict",dict)
     for x in routes:
         cityA = x[0]
         cityB = x[1]
         pygame.draw.line(surface,grey,dict[cityA],dict[cityB],5)
+
+
+def drawRoutes(routes,surface):
+    for x in routes:
+        cityA = x[0]
+        cityB = x[1]
+       # pygame.draw.line(surface,grey,dict[cityA],dict[cityB],5)
 
 
 if __name__ == "__main__":
